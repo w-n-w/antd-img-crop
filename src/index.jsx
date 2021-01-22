@@ -5,7 +5,7 @@ import LocaleReceiver from 'antd/es/locale-provider/LocaleReceiver';
 import Modal from 'antd/es/modal';
 import Slider from 'antd/es/slider';
 import './index.less';
-import Compress from 'browser-image-compression';
+import ImageBlobReduce from 'image-blob-reduce';
 
 const pkg = 'antd-img-crop';
 const noop = () => {};
@@ -145,17 +145,6 @@ const ImgCrop = forwardRef((props, ref) => {
 
   const cropPixelsRef = useRef();
 
-  const loadImage = (file) => {
-    return new Promise((resolve, reject) => {
-      const image = new Image();
-      image.onload = () => {
-        resolve(image);
-      };
-      image.onerror = reject;
-      image.src = file;
-    });
-  };
-
   /**
    * Upload
    */
@@ -179,11 +168,11 @@ const ImgCrop = forwardRef((props, ref) => {
             let finalFile;
 
             if (resizeMaxSize) {
-              finalFile = await Compress(file, {
-                maxWidthOrHeight: resizeMaxSize,
-                initialQuality: 0.8,
-              }).then();
+              const reduce = new ImageBlobReduce();
+              finalFile = await reduce.toBlob(file, { max: resizeMaxSize });
 
+              finalFile.name = file.name;
+              finalFile.lastModifiedDate = new Date();
               fileRef.current = finalFile;
               resolveRef.current = resolve;
               rejectRef.current = reject;
