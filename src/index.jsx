@@ -5,7 +5,7 @@ import LocaleReceiver from 'antd/es/locale-provider/LocaleReceiver';
 import Modal from 'antd/es/modal';
 import Slider from 'antd/es/slider';
 import './index.less';
-import Pica from 'pica';
+import Compress from 'browser-image-compression';
 
 const pkg = 'antd-img-crop';
 const noop = () => {};
@@ -179,26 +179,11 @@ const ImgCrop = forwardRef((props, ref) => {
             let finalFile;
 
             if (resizeMaxSize) {
-              // resize image if resizeMaxSize is set
-              const pica = new Pica();
-              const url = URL.createObjectURL(file);
-              const originalImage = await loadImage(url);
+              finalFile = await Compress(file, {
+                maxWidthOrHeight: resizeMaxSize,
+                initialQuality: 0.8,
+              }).then();
 
-              const { naturalWidth, naturalHeight } = originalImage;
-              const destination = document.createElement('canvas');
-
-              if (naturalWidth > naturalHeight) {
-                destination.width = resizeMaxSize;
-                destination.height = (naturalHeight * resizeMaxSize) / naturalWidth;
-              } else {
-                destination.height = resizeMaxSize;
-                destination.width = (naturalWidth * resizeMaxSize) / naturalHeight;
-              }
-
-              await pica.resize(originalImage, destination);
-              finalFile = await pica.toBlob(destination, 'image/png').then();
-              finalFile.name = file.name;
-              finalFile.lastModifiedDate = new Date();
               fileRef.current = finalFile;
               resolveRef.current = resolve;
               rejectRef.current = reject;
