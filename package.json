@@ -1,6 +1,6 @@
 {
-  "name": "@hugorezende/antd-img-crop",
-  "version": "3.15.1",
+  "name": "@w_n_w/antd-img-crop",
+  "version": "1.0.0",
   "description": "An image cropper for Ant Design Upload",
   "keywords": [
     "react",
@@ -12,10 +12,10 @@
     "cropper"
   ],
   "license": "MIT",
-  "author": "Hugo Rezende <hugorezendedev@gmail.com> (https://github.com/hugorezende)",
-  "homepage": "https://github.com/hugorezende/antd-img-crop",
-  "repository": "github:hugorezende/antd-img-crop",
-  "bugs": "https://github.com/hugorezende/antd-img-crop/issues",
+  "author": "w_n_w",
+  "homepage": "https://github.com/w_n_w/antd-img-crop",
+  "repository": "github:w_n_w/antd-img-crop",
+  "bugs": "https://github.com/w_n_w/antd-img-crop/issues",
   "main": "dist/antd-img-crop.cjs.js",
   "module": "dist/antd-img-crop.esm.js",
   "types": "index.d.ts",
