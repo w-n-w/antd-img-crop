@@ -317,7 +317,8 @@ const ImgCrop = forwardRef((props, ref) => {
         <Modal
           visible={true}
           wrapClassName={`${pkg}-modal`}
-          title={titleOfModal}
+          // title={titleOfModal}
+          title="DEBUG"
           onOk={onOk}
           onCancel={onClose}
           maskClosable={false}
